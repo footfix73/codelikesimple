@@ -53,8 +53,9 @@ pipeline {
     
               timeout(5) { 
                 openshift.selector("dc", "codelikesimple").related('pods').untilEach(1) { 
-                return (it.object().status.phase == "Running") 
-              } 
+                  return (it.object().status.phase == "Running") 
+                } 
+              }
             } 
           } 
         }
