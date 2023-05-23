@@ -17,6 +17,7 @@ pipeline {
 				script {
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
+              
 							def buildConfigExists = openshift.selector("bc", "codelikesimple").exists() 
 							
 							if(!buildConfigExists){ 
