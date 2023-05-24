@@ -2,6 +2,11 @@ pipeline {
   agent {
 		label 'maven'
 	}
+
+  parameters {
+    string(name: 'GIT_REPO', description: 'https://github.com/footfix73/codelikesimple.git')
+  }
+
   stages {
 		stage('Build') {
 			steps {
@@ -13,9 +18,9 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: params.GIT_REPO]]])
 
 				script {
-          git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
 
@@ -54,6 +59,6 @@ pipeline {
         }
       }
     }
-    
+
   }
 }
