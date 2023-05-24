@@ -38,7 +38,7 @@ pipeline {
           // Clonar el repositorio Git
           git branch: gitBranch, url: gitRepoUrl
 
-          spec.source.git = gitRepoUrl
+          spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
@@ -66,6 +66,8 @@ pipeline {
 
           // Clonar el repositorio Git
           git branch: gitBranch, url: gitRepoUrl
+
+          spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
