@@ -38,6 +38,8 @@ pipeline {
           // Clonar el repositorio Git
           git branch: gitBranch, url: gitRepoUrl
 
+          spec.source.git = gitRepoUrl
+
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
 
@@ -64,7 +66,7 @@ pipeline {
 
           // Clonar el repositorio Git
           git branch: gitBranch, url: gitRepoUrl
-          
+
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
