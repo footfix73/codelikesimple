@@ -18,7 +18,7 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: params.GIT_REPO]]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
 
 				script {
 					openshift.withCluster() { 
