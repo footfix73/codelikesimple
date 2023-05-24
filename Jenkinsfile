@@ -43,14 +43,14 @@ pipeline {
         script {
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
-              def deployment = openshift.selector("dc", "codelikesimple") 
+              def deployment = openshift.selector("dc", "mypipeline") 
     
               if(!deployment.exists()){ 
                 openshift.newApp('codelikesimple', "--as-deployment-config").narrow('svc').expose() 
               } 
     
               timeout(5) { 
-                openshift.selector("dc", "codelikesimple").related('pods').untilEach(1) { 
+                openshift.selector("dc", "mypipeline").related('pods').untilEach(1) { 
                   return (it.object().status.phase == "Running") 
                 } 
               }
