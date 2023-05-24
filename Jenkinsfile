@@ -31,12 +31,8 @@ pipeline {
         echo 'Create Container Image ...'
 
 				script {
-          // Obtener los valores de los parámetros
-          def gitRepoUrl = params.GIT_REPO_URL
-          def gitBranch = params.GIT_BRANCH
-
           // Clonar el repositorio Git
-          git branch: gitBranch, url: gitRepoUrl
+          git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
 
           spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
@@ -60,11 +56,6 @@ pipeline {
         echo 'Deploying....'
 
         script {
-          // Clonar el repositorio Git
-          git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
-
-          spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
-
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
