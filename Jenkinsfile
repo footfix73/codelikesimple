@@ -2,13 +2,17 @@ pipeline {
   agent {
 		label 'maven'
 	}
+  parameters {
+        string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/footfix73/codelikesimple.git', description: 'URL del repositorio Git')
+        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Rama del repositorio Git')
+  }
 
   stages {
 		stage('Build') {
 			steps {
 				echo 'Building..'
         // Aquí se especifica el campo spec.source.git
-        git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
+        git branch: params.GIT_BRANCH, url: params.GIT_REPO_URL
 				sh 'mvn clean package'
 			}
 		}
@@ -16,9 +20,9 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
-        
+
         // Aquí se especifica el campo spec.source.git
-        git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
+        git branch: params.GIT_BRANCH, url: params.GIT_REPO_URL
 
 				script {
 					openshift.withCluster() { 
@@ -39,6 +43,8 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying....'
+        // Aquí se especifica el campo spec.source.git
+        git branch: params.GIT_BRANCH, url: params.GIT_REPO_URL
         
         script {
           openshift.withCluster() { 
