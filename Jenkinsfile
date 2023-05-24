@@ -18,7 +18,7 @@ pipeline {
         )
       }
     }
-    
+
 		stage('Build') {
 			steps {
 				echo 'Building..'
@@ -30,10 +30,14 @@ pipeline {
       steps {
         echo 'Create Container Image ...'
 
-        // Checkout del repositorio Git
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
-
 				script {
+          // Obtener los valores de los parámetros
+          def gitRepoUrl = params.GIT_REPO_URL
+          def gitBranch = params.GIT_BRANCH
+
+          // Clonar el repositorio Git
+          git branch: gitBranch, url: gitRepoUrl
+
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
 
@@ -53,10 +57,14 @@ pipeline {
       steps {
         echo 'Deploying....'
 
-        // Checkout del repositorio Git
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
-
         script {
+          // Obtener los valores de los parámetros
+          def gitRepoUrl = params.GIT_REPO_URL
+          def gitBranch = params.GIT_BRANCH
+
+          // Clonar el repositorio Git
+          git branch: gitBranch, url: gitRepoUrl
+          
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
