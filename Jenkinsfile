@@ -7,6 +7,8 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Building..'
+        // Aquí se especifica el campo spec.source.git
+        git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
 				sh 'mvn clean package'
 			}
 		}
@@ -21,7 +23,7 @@ pipeline {
 							def buildConfigExists = openshift.selector("bc", "codelikesimple").exists() 
 							
 							if(!buildConfigExists){ 
-								openshift.newBuild("--name=codelikesimple", "--docker-image=registry.redhat.io/openjdk/openjdk-11-rhel7", "--binary") 
+								openshift.newBuild("--name=codelikesimple", "--docker-image=registry.redhat.io/jboss-eap-7/eap74-openjdk8-openshift-rhel7", "--binary") 
 							} 
 							openshift.selector("bc", "codelikesimple").startBuild("--from-file=target/simple-servlet-0.0.1-SNAPSHOT.war", "--follow") 
             } 
