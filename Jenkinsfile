@@ -7,12 +7,6 @@ pipeline {
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Rama del repositorio Git')
   }
 
-      // Configuración del campo spec.source.git
-    options {
-        // Otras opciones del pipeline
-        spec.source.git 'https://github.com/footfix73/codelikesimple.git'
-    }
-
   stages {
 		stage('Build') {
 			steps {
