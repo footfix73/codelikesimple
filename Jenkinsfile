@@ -27,7 +27,7 @@ pipeline {
 							def buildConfigExists = openshift.selector("bc", "codelikesimple").exists() 
 							
 							if(!buildConfigExists){ 
-								openshift.newBuild("--name=codelikesimple", "--docker-image=registry.redhat.io/jboss-eap-7/eap74-openjdk8-openshift-rhel7", "--binary") 
+								openshift.newBuild("--name=example", "--docker-image=registry.redhat.io/jboss-eap-7/eap74-openjdk8-openshift-rhel7", "--binary") 
 							} 
 							openshift.selector("bc", "codelikesimple").startBuild("--from-file=target/simple-servlet-0.0.1-SNAPSHOT.war", "--follow") 
             } 
