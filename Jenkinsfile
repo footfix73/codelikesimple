@@ -2,12 +2,6 @@ pipeline {
   agent {
 		label 'maven'
 	}
-
-  parameters {
-        string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/footfix73/codelikesimple.git', description: 'URL del repositorio Git')
-        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Rama del repositorio Git')
-  }
-
   stages {
 		stage('Build') {
 			steps {
@@ -60,5 +54,6 @@ pipeline {
         }
       }
     }
+    
   }
 }
