@@ -3,11 +3,6 @@ pipeline {
 		label 'maven'
 	}
 
-  options {
-    // Otras opciones del pipeline
-    spec.source.git 'https://github.com/footfix73/codelikesimple.git'
-  }
-
   parameters {
         string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/footfix73/codelikesimple.git', description: 'URL del repositorio Git')
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Rama del repositorio Git')
@@ -37,6 +32,7 @@ pipeline {
         echo 'Create Container Image ...'
 
 				script {
+          git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
 
