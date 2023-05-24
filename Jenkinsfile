@@ -51,6 +51,7 @@ pipeline {
         echo 'Deploying....'
 
         script {
+            spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
