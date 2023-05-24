@@ -26,7 +26,7 @@ pipeline {
         echo 'Create Container Image ...'
 
         // Checkout del repositorio Git
-        //checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
 
 				script {
 					openshift.withCluster() { 
@@ -47,6 +47,9 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying....'
+
+        // Checkout del repositorio Git
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
 
         script {
           openshift.withCluster() { 
