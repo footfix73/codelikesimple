@@ -16,6 +16,10 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
+        
+        // Aquí se especifica el campo spec.source.git
+        git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
+
 				script {
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
