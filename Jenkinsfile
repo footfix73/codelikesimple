@@ -56,6 +56,11 @@ pipeline {
         echo 'Deploying....'
 
         script {
+          // Clonar el repositorio Git
+          git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
+
+          spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
+
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
