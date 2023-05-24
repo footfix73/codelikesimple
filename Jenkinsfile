@@ -29,9 +29,9 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
+        spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
 				script {
-          spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
 
@@ -50,9 +50,9 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying....'
+        spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
         script {
-          spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
