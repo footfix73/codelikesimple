@@ -2,6 +2,12 @@ pipeline {
   agent {
 		label 'maven'
 	}
+
+  options {
+    // Otras opciones del pipeline
+    spec.source.git 'https://github.com/footfix73/codelikesimple.git'
+  }
+
   parameters {
         string(name: 'GIT_REPO_URL', defaultValue: 'https://github.com/footfix73/codelikesimple.git', description: 'URL del repositorio Git')
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Rama del repositorio Git')
@@ -29,7 +35,6 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
-        spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
 				script {
 					openshift.withCluster() { 
@@ -50,7 +55,6 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying....'
-        spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
         script {
           openshift.withCluster() { 
