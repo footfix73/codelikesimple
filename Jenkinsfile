@@ -11,8 +11,9 @@ pipeline {
 		stage('Build') {
 			steps {
 				echo 'Building..'
-        // Aquí se especifica el campo spec.source.git
-        git branch: params.GIT_BRANCH, url: params.GIT_REPO_URL
+
+        // Definir el campo spec.source.git con la URL del repositorio git
+        spec.source.git = params.GIT_REPO_URL
 				sh 'mvn clean package'
 			}
 		}
@@ -21,8 +22,8 @@ pipeline {
       steps {
         echo 'Create Container Image ...'
 
-        // Aquí se especifica el campo spec.source.git
-        git branch: params.GIT_BRANCH, url: params.GIT_REPO_URL
+        // Definir el campo spec.source.git con la URL del repositorio git
+        spec.source.git = params.GIT_REPO_URL
 
 				script {
 					openshift.withCluster() { 
@@ -43,9 +44,10 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying....'
-        // Aquí se especifica el campo spec.source.git
-        git branch: params.GIT_BRANCH, url: params.GIT_REPO_URL
         
+        // Definir el campo spec.source.git con la URL del repositorio git
+        spec.source.git = params.GIT_REPO_URL
+
         script {
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
