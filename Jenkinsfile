@@ -7,6 +7,12 @@ pipeline {
         string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Rama del repositorio Git')
   }
 
+      // Configuración del campo spec.source.git
+    options {
+        // Otras opciones del pipeline
+        spec.source.git 'https://github.com/footfix73/codelikesimple.git'
+    }
+
   stages {
 		stage('Build') {
 			steps {
@@ -18,10 +24,11 @@ pipeline {
     stage('Create Container Image') {
       steps {
         echo 'Create Container Image ...'
-				script {
-          // Definir el campo spec.source.git con la URL del repositorio git
-          spec.source.git = params.GIT_REPO_URL
 
+        // Checkout del repositorio Git
+        //checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/footfix73/codelikesimple.git']]])
+
+				script {
 					openshift.withCluster() { 
 						openshift.withProject("vicentegarcia-dev") {
 
@@ -42,9 +49,6 @@ pipeline {
         echo 'Deploying....'
 
         script {
-          // Definir el campo spec.source.git con la URL del repositorio git
-          spec.source.git = params.GIT_REPO_URL
-
           openshift.withCluster() { 
             openshift.withProject("vicentegarcia-dev") { 
               def deployment = openshift.selector("dc", "codelikesimple") 
