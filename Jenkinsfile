@@ -60,10 +60,6 @@ pipeline {
         echo 'Deploying....'
 
         script {
-          // Obtener los valores de los parámetros
-          def gitRepoUrl = params.GIT_REPO_URL
-          def gitBranch = params.GIT_BRANCH
-
           // Clonar el repositorio Git
           git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
 
