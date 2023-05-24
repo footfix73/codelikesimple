@@ -9,17 +9,6 @@ pipeline {
   }
 
   stages {
-    stage("Clone Git Repository") {
-      steps {
-      git(
-        url: "https://github.com/footfix73/codelikesimple.git",
-        branch: "main",
-        changelog: true,
-        poll: true
-        )
-      }
-    }
-
 		stage('Build') {
 			steps {
 				echo 'Building..'
