@@ -65,7 +65,7 @@ pipeline {
           def gitBranch = params.GIT_BRANCH
 
           // Clonar el repositorio Git
-          git branch: gitBranch, url: gitRepoUrl
+          git branch: 'main', url: 'https://github.com/footfix73/codelikesimple.git'
 
           spec.source.git = 'https://github.com/footfix73/codelikesimple.git'
 
